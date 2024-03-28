@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ephesis&family=Inconsolata&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+
+
+<style>
+	
+	input {
+		font-size: 22px;
+	}
+
+	
+body {
+  font-family: 'Montserrat', sans-serif;
+
+  margin: 0 auto;
+  max-width: 600px;
+  background: url("https://images.creativemarket.com/0.1.0/ps/2119833/1360/906/m1/fpnw/wm1/m0rtonm280q7nnemkhgzzzdg7ukknth36nhr0n3lj6ja754xrlcvu9cjqxkkqhzz-.jpg?1&s=977ab884fd5bd570d494d721bb29d9be");
+}
+div {
+  height: 300px;
+  background-size: cover;
+  position: relative;
+  margin: 40px 0 0 0;
+  border-radius: 12px;
+}
+h1 {
+  font-family: 'Inconsolata', monospace;
+  text-align: center;
+  font-size: 75px;
+  color: #b6f8fc;
+  margin: 60px 0 0 0;
+}
+h2 {
+  text-align: center;
+  color:#2ce5f2;
+  margin: 0px 0 70px 0;
+  font-family: 'Libre Baskerville', serif;
+  
+}
+p {
+  color: rgba(182, 230, 252,1);
+  background: black;
+  background: linear-gradient(bottom, rgba(146, 205, 232,1), rgba(0,0,0,.4));
+  background: -webkit-linear-gradient(bottom, rgba(75, 104, 117,1), rgba(0,0,0,.4));
+  background: -moz-linear-gradient(bottom, rgba(75, 104, 1171), rgba(0,0,.4));
+  padding: 10px;
+  line-height: 28px;
+  text-align: justify;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  height: 30px;
+  transition: height .5s;
+  -webkit-transition: height .5s;
+  -moz-transition: height .5s;
+}
+
+small {
+  opacity: 0;
+}
+
+.show-description p {
+  height: 150px;
+}
+
+.show-description small {
+  opacity: 1;
+}
+
+.first{
+  background-image: url("https://thecaglediaries.com/wp-content/uploads/2021/08/Louisiana-Seafood-Gumbo-Recipe-Featured-Image-735x735.jpg");
+}
+.second{
+  background-image: url("https://s.hdnux.com/photos/01/31/03/77/23347177/3/rawImage.jpg");
+}
+.dessert{
+  background-image: url("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/blue-lagoon-f2fd71f.jpg?quality=90&resize=440,400");
+}
+.price {
+  float: right;
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 50px;
+    margin-top: 20px;
+    line-height: 40px;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 20px 0 30px 0;
+  }
+  div {
+    margin: 20px 12px 0 12px;
+  }
+  p {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  small {
+    font-size: 16px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+<h1>Sea Shore</h1>
+<h2>Better Eats</h2>
+<br><br>  
+<div class="first">
+	<input class="quantities" type="number" min="0" style="width: 50px">
+  <p>NEW Seafood Gumbo <span class="price">$12</span><br />
+  <small>Spicy and tangy</small></p>
+</div>
+
+<div class="second">
+	<input class="quantities" type="number" min="0" style="width: 50px">
+  <p>Fresh oysters/Lobster<span class="price">$30</span><br />
+  <small>Freshly brought from the paciic ocean</small></p>
+</div>
+  
+<div class="dessert">
+	<input class="quantities" type="number" min="0" style="width: 50px">
+  <p>Blue Lagoon Drink <span class="price">$4</span><br />
+  <small>Blueberry drink with lemon lime flavored sparkling water with a cherry on top</small></p>
+</div>
+   <br><br>
+   <input id="Name" placeholder="Name">
+  <input  placeholder="Email" id="Email">
+  <input type="submit" id="submit">
+
+<script>
+  $('div').on('click', function() {
+      $(this).toggleClass('show-description');
+  });
+</script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBv9fiLWslPbYQsiCrZUdn9ZUdAuoLsJS8",
+    authDomain: "mamaa-13142.firebaseapp.com",
+    projectId: "mamaa-13142",
+    storageBucket: "mamaa-13142.appspot.com",
+    messagingSenderId: "123436340753",
+    appId: "1:123436340753:web:2ffc9697a179820a61c3b0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  	const db = getDatabase(app);
+const Name = document.querySelector("#Name") 
+const Email = document.querySelector("#Email")
+document.querySelector('#submit').addEventListener('click', Submit)
+  const quantities = document.querySelectorAll(".quantities")
+  const itemsList = ["NEW Seafood Gumbo", "Fresh oysters & Lobster", "Blue Lagoon Drink"]
+	const prices = document.querySelectorAll(".price")
+  
+function Submit() {
+  const timestamp = buildTimestamp()
+  let cart = { }
+  let total = 0
+  for  (let i=0; i<quantities.length; i=i+1) {
+  	if (quantities[i].value != "0" && quantities[i].value != "") {	
+	  let price = prices[i].innerHTML.replace('$', '')
+	  total = total + quantities[i].value * price 
+  		cart[itemsList[i]] = parseInt(quantities[i].value) 
+  	}
+  	quantities[i].value = ""
+  }
+	
+  
+  set(ref(db, timestamp), {
+	  Name: Name.value,
+      Email: Email.value,
+	  cart: cart,
+	  totalPrice: total,
+	  paid: "not yet",
+  });
+
+  Name.value = ""
+  Email.value = ""
+}
+
+function buildTimestamp() {
+  const now = new Date();
+  let timestamp = now.getFullYear().toString() + "/";
+  //const month = now.toLocaleString('default', { month: 'long' });
+
+  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+  month = month.toString()
+  month = addLeadingZero(month)
+  timestamp += month + "/"; 
+
+  let date = now.getDate().toString()
+  date = addLeadingZero(date)
+  timestamp += date + "/";
+
+  let hours = now.getHours().toString()
+  hours = addLeadingZero(hours)
+  timestamp += hours + ":";
+
+  let minutes = now.getMinutes().toString()
+  minutes = addLeadingZero(minutes)
+  timestamp += minutes + ":";
+
+  let seconds = now.getSeconds().toString()
+  seconds = addLeadingZero(seconds)
+  timestamp += seconds;
+
+  return timestamp
+}
+
+function addLeadingZero(units) {
+	if (units.length < 2) {
+		units = "0" + units
+	}
+	return units
+}
+ 
+
+</script>
+
+
+
+</body>
